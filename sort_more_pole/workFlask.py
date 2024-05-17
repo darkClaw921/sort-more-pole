@@ -14,10 +14,10 @@ ACT_ITEM_ID=145
 
 @api.route('/sort/<string:entitiID>/<int:itemID>')
 class report_entity(Resource):
-    def post(self,entitiID:int,itemID:int,userID:str,startDate:str,endDate:str):
+    def post(self,entitiID:int,itemID:int):
         """Обновление сущности"""
         # pprint(request)
-        userID=userID.split('_')[1] 
+        # userID=userID.split('_')[1] 
         # entitiID=entitiID.split('_')[0]
         if entitiID != 'T91': return 'Not report'
         
@@ -26,7 +26,7 @@ class report_entity(Resource):
         print(f"{entitiID=}")
         
         print(f"{itemID=}")
-        print(f"{userID=}")
+        # print(f"{userID=}")
 
 
         act=get_act_item(itemID)
