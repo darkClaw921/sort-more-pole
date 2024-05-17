@@ -18,7 +18,7 @@ class report_entity(Resource):
         """Обновление сущности"""
         # pprint(request)
         # userID=userID.split('_')[1] 
-        # entitiID=entitiID.split('_')[0]
+        entitiID=entitiID.split('_')[0]
         if entitiID != 'T91': return 'Not report'
         
         entitiID=ACT_ITEM_ID
