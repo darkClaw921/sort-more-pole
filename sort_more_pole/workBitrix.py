@@ -13,8 +13,9 @@ load_dotenv()
 webhook = os.getenv('WEBHOOK')
 bit = Bitrix(webhook)
 BILLING_ITEM_ID=173
-PROJECT_ITEM_ID=158
-ACT_ITEM_ID=145
+# PROJECT_ITEM_ID=158
+ACT_ITEM_ID=182
+RASHODY_ENTY_ID=160
 # TODO: нужно как-то получить id проекта автоматически а так можно посомтреть через get
 # case ['T99', itemID]:
 
@@ -93,6 +94,7 @@ class ACTitem:
     assigned:str='assignedById'
     dateClose:str='ufCrm_17Date'
     billings:str='ufCrm21Billings'
+    rshody:str='ufCrm21Rashody'
     # dateClose:str='ufCrm10_1715010793674'
     # entityTypeId:str='ENTITY_TYPE_ID 
     # fields:str='FIELDS'
@@ -482,16 +484,27 @@ def sort_billings(billings:list)->list:
     return list(sortBill.keys())
     
     # billings.sort(key=lambda x: x['ufCrm_17Date'])
-     
+
+def sort_rashody(rashody:list)->list:
+    rashody=bit.get_by_ID('crm.item.get', ID_list=rashody, ID_field_name='id',params={'entityTypeId':RASHODY_ENTY_ID})
+    # pprint(rashody)
+    rashody=sort_by_date(rashody)   
+    return list(rashody.keys())
+
+
     # acts = bit.call('crm.item.list', items={'entityTypeId':ACT_ITEM_ID}, raw=True)['result']    
     # return acts
 
-def update_act_for_item(actID, billings:list):
+def update_act_for_item(actID, billings:list, pole:str):
     # enID=0
     # itID=0
-
-    fields={
+    if pole=='billings':
+        fields={
             ACTitem.billings:billings,
+            }
+    elif pole=='rashody':
+        fields={
+            ACTitem.rashody:billings,
             }
     # 1/0
     bit.call('crm.item.update', items={'entityTypeId':ACT_ITEM_ID,'id': actID, 'fields':fields})
