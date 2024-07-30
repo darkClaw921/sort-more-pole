@@ -102,7 +102,16 @@ class ACTitem:
     # stavka:str='None'
     # project:str='parentId158'
     # assigned:str='assignedById'
-
+@dataclass
+class ExpenseItem:
+    # id:str='id'
+    # title:str='title'
+    # duration:str='ufCrm7_1713540841714'
+    # project:str='parentId158'
+    # assigned:str='assignedById'
+    dateClose:str='ufCrm19Date'
+    # billings:str='ufCrm21Billings'
+    # rashody:str='ufCrm21Expenses'
 
 # async def te
 def find_deal(dealID:str):
@@ -487,7 +496,7 @@ def sort_billings(billings:list)->list:
 def sort_rashody(rashody:list)->list:
     rashody=bit.get_by_ID('crm.item.get', ID_list=rashody, ID_field_name='id',params={'entityTypeId':RASHODY_ENTY_ID})
     # pprint(rashody)
-    rashody=sort_by_date(rashody,ACTitem.dateClose)   
+    rashody=sort_by_date(rashody,ExpenseItem.dateClose)   
     return list(rashody.keys())
 
 
