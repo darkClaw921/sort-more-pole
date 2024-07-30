@@ -91,7 +91,7 @@ class ACTitem:
     duration:str='ufCrm7_1713540841714'
     project:str='parentId158'
     assigned:str='assignedById'
-    dateClose:str='ufCrm_17Date'
+    dateClose:str='ufCrm21Date'
     billings:str='ufCrm21Billings'
     rshody:str='ufCrm21Expenses'
     # dateClose:str='ufCrm10_1715010793674'
@@ -459,17 +459,17 @@ def get_act_item(actID:str):
     act = bit.call('crm.item.get', items={'entityTypeId':ACT_ITEM_ID,'id': actID},raw=True)['result']['item']
     return act
 
-def sort_by_date(items: dict):
+def sort_by_date(items: dict, datePole:str='ufCrm17Date')->dict:
     # Преобразование строки даты в объект datetime
 
     for key, value in items.items():
-        date_str = value['item']['ufCrm17Date']
+        date_str = value['item'][datePole]
         date_obj = datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%S%z')
-        value['item']['ufCrm17Date'] = date_obj
+        value['item'][datePole] = date_obj
 
     # Сортировка словаря по дате
     print('не отсортированный: ',items.keys())
-    sorted_items = dict(sorted(items.items(), key=lambda item: item[1]['item']['ufCrm17Date'], reverse=False))
+    sorted_items = dict(sorted(items.items(), key=lambda item: item[1]['item'][datePole], reverse=False))
     
     return sorted_items
 
@@ -487,7 +487,7 @@ def sort_billings(billings:list)->list:
 def sort_rashody(rashody:list)->list:
     rashody=bit.get_by_ID('crm.item.get', ID_list=rashody, ID_field_name='id',params={'entityTypeId':RASHODY_ENTY_ID})
     # pprint(rashody)
-    rashody=sort_by_date(rashody)   
+    rashody=sort_by_date(rashody,ACTitem.dateClose)   
     return list(rashody.keys())
 
 
