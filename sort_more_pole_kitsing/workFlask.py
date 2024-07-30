@@ -42,7 +42,7 @@ class report_entity(Resource):
         act=get_act_item(itemID)
         if pole=='billings':
             sort=sort_billings(act[ACTitem.billings])
-        if pole=='rashody':
+        if pole=='expenses':
             sort=sort_rashody(act[ACTitem.rashody])
 
         # sort=sort_billings(act[ACTitem.billings])

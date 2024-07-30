@@ -93,7 +93,7 @@ class ACTitem:
     assigned:str='assignedById'
     dateClose:str='ufCrm_17Date'
     billings:str='ufCrm21Billings'
-    rshody:str='ufCrm21Rashody'
+    rshody:str='ufCrm21Expenses'
     # dateClose:str='ufCrm10_1715010793674'
     # entityTypeId:str='ENTITY_TYPE_ID 
     # fields:str='FIELDS'
