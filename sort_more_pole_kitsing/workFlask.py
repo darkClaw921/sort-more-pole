@@ -38,8 +38,11 @@ class report_entity(Resource):
         print(f"{itemID=}")
         # print(f"{userID=}")
 
-
-        act=get_act_item(itemID)
+        try:
+            act=get_act_item(itemID)
+        except:
+            act=get_act_item(itemID, pole)
+            
         if pole=='billings':
             sort=sort_billings(act[ACTitem.billings])
         if pole=='expenses':
