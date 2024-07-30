@@ -510,7 +510,7 @@ def update_act_for_item(actID, billings:list, pole:str):
         fields={
             ACTitem.billings:billings,
             }
-    elif pole=='rashody':
+    elif pole=='expenses':
         fields={
             ACTitem.rashody:billings,
             }
