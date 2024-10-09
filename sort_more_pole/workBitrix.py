@@ -1,4 +1,5 @@
 from fast_bitrix24 import Bitrix
+import requests
 import os
 from dotenv import load_dotenv
 from pprint import pprint
@@ -94,7 +95,7 @@ class ACTitem:
     assigned:str='assignedById'
     dateClose:str='ufCrm_17Date'
     billings:str='ufCrm21Billings'
-    rshody:str='ufCrm21Rashody'
+    rashody:str='ufCrm21Rashody'
     # dateClose:str='ufCrm10_1715010793674'
     # entityTypeId:str='ENTITY_TYPE_ID 
     # fields:str='FIELDS'
@@ -510,7 +511,22 @@ def update_act_for_item(actID, billings:list, pole:str):
     bit.call('crm.item.update', items={'entityTypeId':ACT_ITEM_ID,'id': actID, 'fields':fields})
 
 if __name__ == '__main__':
+    #get deal
+    portal='https://b24-pb7ty4.bitrix24.ru'
+    deal=bit.call('crm.deal.get', {'id':2})['order0000000000']
+    pprint(deal)
+    downUrl=deal['UF_CRM_1726822670834']['downloadUrl']
+    url=portal+downUrl
+    print(url)
+    a=requests.get(url)
+    
+    # pprint(a.text)
+    # pprint(a.content)
+    with open('test.webp', 'wb') as f:
+        f.write(a.content)
 
+    a=bit.call('disk.file.get',{'id':118})
+    pprint(a)
     # event=get_all_calendar_events()
     # event=get_calendar_event('22')
     # pprint(event)
